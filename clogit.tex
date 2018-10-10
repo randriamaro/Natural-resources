@@ -1,0 +1,50 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{2}{c}}
+\hline\hline
+            &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}\\
+            &\multicolumn{1}{c}{choice}&\multicolumn{1}{c}{choice}\\
+\hline
+alternative &                     &                     \\
+price       &     -0.0865\sym{***}&     -0.0632\sym{***}\\
+            &   (0.00663)         &   (0.00868)         \\
+[1em]
+eff70       &    0.000570         &     -0.0615         \\
+            &    (0.0446)         &    (0.0601)         \\
+[1em]
+eff99       &       0.798\sym{***}&       0.729\sym{***}\\
+            &    (0.0454)         &    (0.0613)         \\
+[1em]
+dure20      &      0.0436         &      0.0362         \\
+            &    (0.0311)         &    (0.0417)         \\
+[1em]
+vacc\_ch     &       0.131\sym{***}&       0.123\sym{**} \\
+            &    (0.0289)         &    (0.0383)         \\
+[1em]
+asc         &      -0.109\sym{*}  &      -0.339\sym{***}\\
+            &    (0.0519)         &    (0.0754)         \\
+[1em]
+tttprice    &                     &     -0.0549\sym{***}\\
+            &                     &    (0.0136)         \\
+[1em]
+ttteff70    &                     &       0.139         \\
+            &                     &    (0.0901)         \\
+[1em]
+ttteff99    &                     &       0.171         \\
+            &                     &    (0.0919)         \\
+[1em]
+tttdure20   &                     &      0.0111         \\
+            &                     &    (0.0629)         \\
+[1em]
+tttvacc\_ch  &                     &      0.0202         \\
+            &                     &    (0.0585)         \\
+[1em]
+tttasc      &                     &       0.434\sym{***}\\
+            &                     &     (0.105)         \\
+\hline
+\(N\)       &        7200         &        7200         \\
+\hline\hline
+\multicolumn{3}{l}{\footnotesize Standard errors in parentheses}\\
+\multicolumn{3}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
+\end{tabular}
+}
