@@ -1,0 +1,893 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Assignment 2}
+    \author{Tiana Randriamaro}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}82}]:} \PY{k+kn}{import} \PY{n+nn}{warnings}
+         \PY{n}{warnings}\PY{o}{.}\PY{n}{filterwarnings}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ignore}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         \PY{k+kn}{import} \PY{n+nn}{math}
+         \PY{k+kn}{import} \PY{n+nn}{scipy}
+         \PY{k+kn}{import} \PY{n+nn}{openpyxl}
+         \PY{k+kn}{import} \PY{n+nn}{statsmodels}\PY{n+nn}{.}\PY{n+nn}{api} \PY{k}{as} \PY{n+nn}{sm}
+         \PY{k+kn}{from} \PY{n+nn}{numpy} \PY{k}{import} \PY{n}{inf}
+         \PY{k+kn}{from} \PY{n+nn}{statistics} \PY{k}{import} \PY{n}{mean}
+         
+         \PY{k+kn}{import} \PY{n+nn}{os}
+         \PY{n}{cwd} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{getcwd}\PY{p}{(}\PY{p}{)}
+         \PY{n}{file} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wake\PYZus{}exercise.csv}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{n}{file}\PY{p}{)}
+\end{Verbatim}
+
+
+    The dataset "wake\_exercise" holds records of sales of 38,817 single
+family homes in Wake County, NC, during 1998 and 1999. There are 37
+variables including the purchase price and natural log of price,
+property characteristics such as number of bathrooms, size of garage,
+and the condition of the house, as well as the location of the property
+and the environmental attribute measuring the distance to a lake.
+
+    \section{Problem 18.1}\label{problem-18.1}
+
+To get a better understanding of the data, I have selected a few
+variables out of the whole data to look at their summary statistics. We
+are interested in looking at how the purchase price of a property in
+Wake County, NC is affected by the variables in the data. Below is the
+summary statistics of nine variables including the purchase price,
+natural log of purchase price, the heated area in sq ft as living area,
+the number of bathrooms, the age in years, the presence of a fireplace,
+the size of a garage in sq ft, the lot size in acres, and the distance
+to the nearest lake in feet.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}84}]:} \PY{n}{df}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+         \PY{n}{df2} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lprice}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{living\PYZus{}area}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{baths}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fireplace}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{garage\PYZus{}area}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{acres}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lakedist}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+         \PY{n}{df2}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}84}]:}                price        lprice   living\_area         baths           age  \textbackslash{}
+         count   38817.000000  38817.000000  38817.000000  38817.000000  38817.000000   
+         mean   180258.842646     12.024953   1914.428858      2.462310     11.365896   
+         std     75585.306412      0.385866    681.540197      0.678926     15.058214   
+         min     56000.000000     10.933107    560.000000      1.000000      0.000000   
+         25\%    126500.000000     11.747997   1380.000000      2.000000      1.000000   
+         50\%    160000.000000     11.982929   1777.000000      2.500000      6.000000   
+         75\%    217000.000000     12.287653   2343.000000      2.500000     14.000000   
+         max    501000.000000     13.124361   5349.000000      7.000000     98.000000   
+         
+                   fireplace   garage\_area         acres      lakedist  
+         count  38817.000000  38817.000000  38817.000000  38817.000000  
+         mean       0.896308    289.631965      0.449827     17.190692  
+         std        0.304864    248.873254      0.621009     11.787929  
+         min        0.000000      0.000000      0.010000      0.000000  
+         25\%        1.000000      0.000000      0.210000      8.557596  
+         50\%        1.000000    378.000000      0.290000     14.110399  
+         75\%        1.000000    484.000000      0.460000     23.198748  
+         max        1.000000   1724.000000     26.370001     67.445343  
+\end{Verbatim}
+            
+    Some data plots to visualize the frequency of the variables
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{c+c1}{\PYZsh{} Frequency plots}
+         \PY{n}{f} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{231}\PY{p}{)}
+         \PY{n}{n}\PY{p}{,} \PY{n}{bins}\PY{p}{,} \PY{n}{patches} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{df2}\PY{o}{.}\PY{n}{lprice}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{,} \PY{n}{density}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}
+                                     \PY{n}{facecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.75}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Distribution of log price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{232}\PY{p}{)}
+         \PY{n}{n}\PY{p}{,} \PY{n}{bins}\PY{p}{,} \PY{n}{patches} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{df2}\PY{o}{.}\PY{n}{age}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{,} \PY{n}{density}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}
+                                     \PY{n}{facecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.75}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{233}\PY{p}{)}
+         \PY{n}{n}\PY{p}{,} \PY{n}{bins}\PY{p}{,} \PY{n}{patches} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{df2}\PY{o}{.}\PY{n}{living\PYZus{}area}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{,} \PY{n}{density}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} 
+                                     \PY{n}{facecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.75}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Living area}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{234}\PY{p}{)}
+         \PY{n}{n}\PY{p}{,} \PY{n}{bins}\PY{p}{,} \PY{n}{patches} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{df2}\PY{o}{.}\PY{n}{garage\PYZus{}area}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{,} \PY{n}{density}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} 
+                                     \PY{n}{facecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{navy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.75}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Garage area}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{235}\PY{p}{)}
+         \PY{n}{n}\PY{p}{,} \PY{n}{bins}\PY{p}{,} \PY{n}{patches} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{df2}\PY{o}{.}\PY{n}{lakedist}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{,} \PY{n}{density}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} 
+                                     \PY{n}{facecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{orange}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.75}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lakedist}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{236}\PY{p}{)}
+         \PY{n}{n}\PY{p}{,} \PY{n}{bins}\PY{p}{,} \PY{n}{patches} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{df2}\PY{o}{.}\PY{n}{acres}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{,} \PY{n}{density}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} 
+                                     \PY{n}{facecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{purple}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.75}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{acres}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplots\PYZus{}adjust}\PY{p}{(}\PY{n}{top}\PY{o}{=}\PY{l+m+mf}{0.90}\PY{p}{,} \PY{n}{bottom}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{n}{left}\PY{o}{=}\PY{l+m+mf}{0.125}\PY{p}{,} 
+                             \PY{n}{right}\PY{o}{=}\PY{l+m+mf}{0.9}\PY{p}{,} \PY{n}{hspace}\PY{o}{=}\PY{l+m+mf}{0.50}\PY{p}{,}\PY{n}{wspace}\PY{o}{=}\PY{l+m+mf}{0.90}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_5_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    A regression with living area, baths, age, fireplace, garage area, and
+acres as the explanatory variables for log price.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}85}]:} \PY{n}{Y} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lprice}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{X1} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{living\PYZus{}area}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{baths}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fireplace}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{garage\PYZus{}area}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{acres}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+         \PY{n}{X1} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{add\PYZus{}constant}\PY{p}{(}\PY{n}{X1}\PY{p}{)}
+         \PY{n}{ols} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{OLS}\PY{p}{(}\PY{n}{Y}\PY{p}{,} \PY{n}{X1}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+         \PY{n}{predictions} \PY{o}{=} \PY{n}{ols}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{p}{)}
+         \PY{n}{residuals} \PY{o}{=} \PY{n}{ols}\PY{o}{.}\PY{n}{resid}
+         \PY{n}{ols}\PY{o}{.}\PY{n}{summary}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}85}]:} <class 'statsmodels.iolib.summary.Summary'>
+         """
+                                     OLS Regression Results                            
+         ==============================================================================
+         Dep. Variable:                 lprice   R-squared:                       0.781
+         Model:                            OLS   Adj. R-squared:                  0.781
+         Method:                 Least Squares   F-statistic:                 2.301e+04
+         Date:                Wed, 26 Sep 2018   Prob (F-statistic):               0.00
+         Time:                        23:40:12   Log-Likelihood:                 11325.
+         No. Observations:               38817   AIC:                        -2.264e+04
+         Df Residuals:                   38810   BIC:                        -2.258e+04
+         Df Model:                           6                                         
+         Covariance Type:            nonrobust                                         
+         ===============================================================================
+                           coef    std err          t      P>|t|      [0.025      0.975]
+         -------------------------------------------------------------------------------
+         const          10.8737      0.005   2339.150      0.000      10.865      10.883
+         living\_area     0.0004   2.03e-06    185.665      0.000       0.000       0.000
+         baths           0.0775      0.002     42.976      0.000       0.074       0.081
+         age             0.0040   7.09e-05     56.219      0.000       0.004       0.004
+         fireplace       0.1081      0.003     33.386      0.000       0.102       0.114
+         garage\_area     0.0003   5.31e-06     53.664      0.000       0.000       0.000
+         acres           0.0335      0.002     22.269      0.000       0.031       0.036
+         ==============================================================================
+         Omnibus:                     3299.730   Durbin-Watson:                   1.431
+         Prob(Omnibus):                  0.000   Jarque-Bera (JB):            15400.744
+         Skew:                           0.294   Prob(JB):                         0.00
+         Kurtosis:                       6.029   Cond. No.                     1.13e+04
+         ==============================================================================
+         
+         Warnings:
+         [1] Standard Errors assume that the covariance matrix of the errors is correctly 
+         specified.
+         [2] The condition number is large, 1.13e+04. This might indicate that there are
+         strong multicollinearity or other numerical problems.
+         """
+\end{Verbatim}
+            
+    \textbf{Estimation of the parameters using
+OLS}
+
+\begin{multline*}
+ln p_i = \beta_0 + \beta_1 \times living\_area_i + 
+\beta_2 \times baths_i + \beta_3 \times age_i +\\ 
+\beta_4 \times fireplace_i + \beta_5 \times garage\_area_i +
+\sum_{k=A}^{C} \beta_{6k}condk_i + \epsilon_i
+\end{multline*}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}86}]:} \PY{n}{Y} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lprice}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{X} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{living\PYZus{}area}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{baths}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fireplace}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{garage\PYZus{}area}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{condA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{condB}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{condC}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+         \PY{n}{X} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{add\PYZus{}constant}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+         \PY{n}{model} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{OLS}\PY{p}{(}\PY{n}{Y}\PY{p}{,} \PY{n}{X}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+         \PY{n}{predictions} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{p}{)}
+         \PY{n}{residuals} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{resid}
+         \PY{n}{model}\PY{o}{.}\PY{n}{summary}\PY{p}{(}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}print(round(model.params,3))}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}86}]:} <class 'statsmodels.iolib.summary.Summary'>
+         """
+                                     OLS Regression Results                            
+         ==============================================================================
+         Dep. Variable:                 lprice   R-squared:                       0.809
+         Model:                            OLS   Adj. R-squared:                  0.809
+         Method:                 Least Squares   F-statistic:                 2.050e+04
+         Date:                Wed, 26 Sep 2018   Prob (F-statistic):               0.00
+         Time:                        23:40:21   Log-Likelihood:                 13982.
+         No. Observations:               38817   AIC:                        -2.795e+04
+         Df Residuals:                   38808   BIC:                        -2.787e+04
+         Df Model:                           8                                         
+         Covariance Type:            nonrobust                                         
+         ===============================================================================
+                           coef    std err          t      P>|t|      [0.025      0.975]
+         -------------------------------------------------------------------------------
+         const          10.6508      0.018    604.413      0.000      10.616      10.685
+         living\_area     0.0004   1.89e-06    197.757      0.000       0.000       0.000
+         baths           0.0735      0.002     43.584      0.000       0.070       0.077
+         age             0.0025   7.45e-05     33.861      0.000       0.002       0.003
+         fireplace       0.0959      0.003     31.612      0.000       0.090       0.102
+         garage\_area     0.0003   4.95e-06     60.241      0.000       0.000       0.000
+         condA           0.5462      0.017     31.471      0.000       0.512       0.580
+         condB           0.2664      0.017     15.528      0.000       0.233       0.300
+         condC           0.1161      0.018      6.517      0.000       0.081       0.151
+         ==============================================================================
+         Omnibus:                     4313.337   Durbin-Watson:                   1.394
+         Prob(Omnibus):                  0.000   Jarque-Bera (JB):            19585.524
+         Skew:                           0.466   Prob(JB):                         0.00
+         Kurtosis:                       6.353   Cond. No.                     8.23e+04
+         ==============================================================================
+         
+         Warnings:
+         [1] Standard Errors assume that the covariance matrix of the errors is correctly
+          specified.
+         [2] The condition number is large, 8.23e+04. This might indicate that there are
+         strong multicollinearity or other numerical problems.
+         """
+\end{Verbatim}
+            
+    The R-squared of the model improved from the model estimated previously
+with the model now explaining about 99.8\% of the variation in the
+dependent variable, lprice. Moreover, all of the coefficients are
+statistically significant with p-value = 0.000. All of the coefficients
+are positive as anticipated, which implies that our explanatory
+variables positively impact the dependent variable, the log of purchase
+price. Given the log-linear model, the coefficients are interpreted as
+the percentage increase in purchase price for a unit increase in the
+explanatory variable. For example, the coefficient on baths,
+\(\beta_2 = 0.0735\), means that the purchase price increases by 7.35
+percent for an additional unit of bath. The condition of the house has
+the biggest impact on the purchase price, with the best condition, A,
+being responsible for an increase of 54.62 percent of the purchase
+price. Based on this regression, the marginal implicit price of an
+additional square foot of living area is:
+
+\begin{equation}
+\frac{\partial \widehat{P}}{\partial q_i} = \frac{\partial \widehat{P}}{\partial living\_area_i} = \beta_1 p_i = 0.0004 p_i
+\end{equation}
+
+    \section{Problem 18.2}\label{problem-18.2}
+
+Using the variable \(lakedist\), which measures the distance in hundreds
+of meters from the property to the nearest lake as a proxy for the value
+of access to lake-based amenities in a first stage hedonic regression.
+
+
+ \textbf{(a)   Estimating the baseline model with \(lakedist\) and natural log of
+\(lakedist\) as \(lnlakedist\)}
+
+\begin{multline*}
+ln p_i = \beta_0 + \beta_1 \times living\_area_i + 
+\beta_2 \times baths_i + \beta_3 \times age_i + \\
+\beta_4 \times fireplace_i + \beta_5 \times garage\_area_i +\\
+\sum_{k=A}^{C} \beta_{6k}condk_i + \beta_7 \times lakedist_i + \beta_8 \times lnlakedist_i +\epsilon_i
+\end{multline*}
+
+    First, we will create the new variable \(lnlakedist\) by taking the
+natural log of \(lakedist\) variable. Some of the data points of
+\(lakedist\) are equal to 0 so the \(lnlakedist\) goes to \(-\infty\).
+To handle those data points, I will assign a negative number that is
+lower than the lowest value of \(lnlakedist\).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lnlakedist}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lakedist}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{a} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lnlakedist}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{c+c1}{\PYZsh{}np.where(np.isinf(df2.lnlakedist))}
+         \PY{n}{np}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{n}{a}\PY{p}{[}\PY{n}{a} \PY{o}{!=} \PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{inf}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}33}]:} -9.100974886925474
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{n}{df}\PY{o}{.}\PY{n}{lnlakedist}\PY{p}{[}\PY{n}{df}\PY{o}{.}\PY{n}{lnlakedist} \PY{o}{==} \PY{o}{\PYZhy{}}\PY{n}{inf}\PY{p}{]} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{10}
+         \PY{n}{X} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{living\PYZus{}area}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{baths}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fireplace}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{garage\PYZus{}area}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{condA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{condB}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{condC}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                 \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lakedist}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lnlakedist}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+         \PY{n}{X} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{add\PYZus{}constant}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+         \PY{n}{Y} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lprice}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{model2} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{OLS}\PY{p}{(}\PY{n}{Y}\PY{p}{,} \PY{n}{X}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+         \PY{n}{predictions2} \PY{o}{=} \PY{n}{model2}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{p}{)}
+         \PY{n}{model2}\PY{o}{.}\PY{n}{summary}\PY{p}{(}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}print(round(model.params,3))}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}35}]:} <class 'statsmodels.iolib.summary.Summary'>
+         """
+                                     OLS Regression Results                            
+         ==============================================================================
+         Dep. Variable:                 lprice   R-squared:                       0.811
+         Model:                            OLS   Adj. R-squared:                  0.811
+         Method:                 Least Squares   F-statistic:                 1.665e+04
+         Date:                Wed, 26 Sep 2018   Prob (F-statistic):               0.00
+         Time:                        20:39:11   Log-Likelihood:                 14219.
+         No. Observations:               38817   AIC:                        -2.842e+04
+         Df Residuals:                   38806   BIC:                        -2.832e+04
+         Df Model:                          10                                         
+         Covariance Type:            nonrobust                                         
+         ===============================================================================
+                           coef    std err          t      P>|t|      [0.025      0.975]
+         -------------------------------------------------------------------------------
+         const          10.7061      0.018    599.999      0.000      10.671      10.741
+         living\_area     0.0004   1.88e-06    196.872      0.000       0.000       0.000
+         baths           0.0697      0.002     41.339      0.000       0.066       0.073
+         age             0.0023   7.46e-05     31.292      0.000       0.002       0.002
+         fireplace       0.0954      0.003     31.618      0.000       0.089       0.101
+         garage\_area     0.0003   4.93e-06     61.634      0.000       0.000       0.000
+         condA           0.5410      0.017     31.358      0.000       0.507       0.575
+         condB           0.2588      0.017     15.175      0.000       0.225       0.292
+         condC           0.1154      0.018      6.515      0.000       0.081       0.150
+         lakedist       -0.0014      0.000    -11.882      0.000      -0.002      -0.001
+         lnlakedist     -0.0030      0.002     -1.954      0.051      -0.006     8.9e-06
+         ==============================================================================
+         Omnibus:                     4363.991   Durbin-Watson:                   1.394
+         Prob(Omnibus):                  0.000   Jarque-Bera (JB):            20262.620
+         Skew:                           0.466   Prob(JB):                         0.00
+         Kurtosis:                       6.415   Cond. No.                     8.25e+04
+         ==============================================================================
+         
+         Warnings:
+         [1] Standard Errors assume that the covariance matrix of the errors is correctly 
+         specified.
+         [2] The condition number is large, 8.25e+04. This might indicate that there are
+         strong multicollinearity or other numerical problems.
+         """
+\end{Verbatim}
+            
+    The R-squared went down from the base model, which implies that the base
+model is better at explaining the variation in the log price. All of the
+coefficients from the base model including
+\(living\_area, baths, age, fireplace, garage\_area, condA, condB, condC\)
+remained positive and statistically significant with p-value = 0.000. So
+an increase in each of those variables leads to a percent increase of
+the purchase price by the coefficient values. \(\beta_0\) went up while
+the other coefficients either remained the same or decreased slightly.
+The coefficients for \(baths, age, fireplace, condA, condB, condC\) went
+down slightly. \(lakedist\) is statistically significant and negative
+meaning that a 100 meter increase in the distance to the nearest lake
+leads to a \(0.14\) percent decrease in purchase price. \(lnlakedist\)
+is also negative but it represents the elasticity of purchase price
+relative to the distance to nearest lake. However, it is not
+statistically significant. The condition of the house still has the
+biggest impact on the purchase price, with the best condition, A, being
+responsible for an increase of 54.10 percent of the purchase price.
+Based on this regression, the marginal willingness to pay for access to
+a lake is:
+
+\begin{equation}
+MWTP = \frac{\partial \widehat{P}}{\partial q_i} = \frac{\partial \widehat{P}}{\partial lakedist_i} = \beta_7 p_i +  \beta_8 \frac{p_i}{lakedist_i} =  -0.0014 p_i - 0.0030 \frac{p_i}{lakedist_i} 
+\end{equation}
+
+To get the sample mean marginal willingness to pay for access to a lake,
+I will use the average p and average distance:
+
+\begin{equation}
+MWTP = \bigg\lvert -0.0014 \times 180258.842646 - 0.0030 \frac{180258.842646}{17.190692} \bigg\rvert \\
+MWTP = 283.82
+\end{equation}
+
+The functional form for distance matters as in this model specification,
+we have both \(lakedist\) and \(lnlakedist\), hence the marginal
+willingness to pay is not just \(\beta p_i\) but
+\(\beta_7 p_i + \beta_8 \frac{p_i}{lakedist_i}\).
+
+    The specification includes no variables that account for other spatial
+aspects such as school quality, access to employment centers, hence the
+effect of these omitted variables will be contained in the error term
+leading to \(E[\epsilon_i \mid x_i,q_i] \neq 0\) where \(x_i\)
+represents all of the explanatory variables except for \(lakedist\) and
+\(lnlakedist\), which are the \(q_i\). The estimate of the implicit
+price of lake access is then biased.\\
+
+    \textbf{(b) Using the level distance variable \(lakedist\), we examine regressions
+that first add a control variable for commuting time
+\((median\_commute)\), and then spatial fixed effects (submarket dummy
+variabes \(zone1,...,zone18\))}
+
+    Estimating the baseline model with \(median\_commute\)
+
+\begin{multline*}
+ln p_i = \beta_0 + \beta_1 \times living\_area_i + 
+\beta_2 \times baths_i + \beta_3 \times age_i + \\
+\beta_4 \times fireplace_i + \beta_5 \times garage\_area_i +
+\sum_{k=A}^{C} \beta_{6k}condk_i + \beta_7 \times lakedist_i + \beta_8 \times median_commute +\epsilon_i
+\end{multline*}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}87}]:} \PY{n}{X} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{living\PYZus{}area}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{baths}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fireplace}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{garage\PYZus{}area}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{condA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{condB}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{condC}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                 \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lakedist}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{median\PYZus{}commute}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+         \PY{n}{X} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{add\PYZus{}constant}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+         \PY{n}{Y} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lprice}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{model3} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{OLS}\PY{p}{(}\PY{n}{Y}\PY{p}{,} \PY{n}{X}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+         \PY{n}{predictions3} \PY{o}{=} \PY{n}{model3}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}model3.summary()}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Model 3 parameters with median\PYZus{}commute}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{round}\PY{p}{(}\PY{n}{model3}\PY{o}{.}\PY{n}{params}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Model 3 parameters with median\_commute
+const             10.61224
+living\_area        0.00037
+baths              0.06991
+age                0.00142
+fireplace          0.09559
+garage\_area        0.00031
+condA              0.49256
+condB              0.23993
+condC              0.11057
+lakedist          -0.00103
+median\_commute     0.00380
+dtype: float64
+
+    \end{Verbatim}
+
+    The \(lakedist\) coefficient is -0.00103, which means that the purchase
+price decreases by 0.10 percent if the distance to the nearest lake
+increases by 100 meters. The marginal implicit price with this model
+specification is
+
+\begin{equation}
+\frac{\partial \widehat{P}}{\partial lakedist_i} = \beta_7 p_i = 0.00103 p_i
+\end{equation}
+
+ At the sample mean price,
+\(MWTP = 0.00103 \times 180258.842646 = 185.67\).\\
+
+    \textbf{(c) Estimating the baseline model with \(median\_commute\) and spatial fixed
+effects for each zone}
+
+\begin{multline*}
+ln p_i = \beta_0 + \beta_1 \times living\_area_i + 
+\beta_2 \times baths_i + \beta_3 \times age_i + \\
+\beta_4 \times fireplace_i + \beta_5 \times garage\_area_i +
+\sum_{k=A}^{C} \beta_{6k}condk_i + \beta_7 \times lakedist_i +\\
+\beta_8 \times median_commute + 
+\theta_1 \times zone1 +\theta_2 \times zone2 +\\
+\theta_3 \times zone3+\theta_4 \times zone4+\theta_5 \times zone5+
+\theta_6 \times zone6+\theta_7 \times zone7+\\
+\theta_8 \times zone8+
+\theta_9 \times zone9+\theta_{10} \times zone10+\theta_{11} \times zone11+\\
+\theta_{12} \times zone12+\theta_{13} \times zone13+\theta_{14} \times zone14+
+\theta_{15} \times zone15+\\
+\theta_{16} \times zone16+\theta_{17} \times zone17+
+\theta_{18} \times zone18 + \epsilon_i
+\end{multline*}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}81}]:} \PY{n}{X} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{living\PYZus{}area}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{baths}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fireplace}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{garage\PYZus{}area}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{condA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{condB}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{condC}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                 \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lakedist}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{median\PYZus{}commute}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{zone1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{zone2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{zone3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{zone4}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{zone5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{zone6}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{zone7}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{zone8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{zone9}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{zone10}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{zone11}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{zone12}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{zone13}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{zone14}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{zone15}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{zone16}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{zone17}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{zone18}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+         \PY{n}{X} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{add\PYZus{}constant}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+         \PY{n}{Y} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lprice}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{model4} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{OLS}\PY{p}{(}\PY{n}{Y}\PY{p}{,} \PY{n}{X}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+         \PY{n}{predictions4} \PY{o}{=} \PY{n}{model4}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}model4.summary()}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Model 4 parameters with median\PYZus{}commute }\PY{l+s+se}{\PYZbs{}\PYZbs{}}
+               \PY{o+ow}{and} \PY{n}{spatial} \PY{n}{fixed} \PY{n}{effects}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{round}\PY{p}{(}\PY{n}{model4}\PY{o}{.}\PY{n}{params}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Model 4 parameters with median\_commute and spatial fixed effects
+const             10.84141
+living\_area        0.00035
+baths              0.06296
+age               -0.00034
+fireplace          0.06059
+garage\_area        0.00028
+condA              0.32497
+condB              0.17989
+condC              0.09127
+lakedist          -0.00138
+median\_commute    -0.00068
+zone1              0.41081
+zone2              0.16292
+zone3             -0.11045
+zone4              0.04543
+zone5              0.13067
+zone6             -0.01422
+zone7              0.09841
+zone8             -0.00013
+zone9              0.10401
+zone10             0.09043
+zone11            -0.03832
+zone12            -0.06832
+zone13            -0.05670
+zone14             0.06881
+zone15             0.09170
+zone16             0.01647
+zone17             0.03914
+zone18             0.05908
+dtype: float64
+
+    \end{Verbatim}
+
+    The \(lakedist\) coefficient is -0.00138, which means that the purchase
+price decreases by 0.138 percent if the distance to the nearest lake
+increases by 100 meters. The marginal implicit price with this model
+specification is
+
+\begin{equation}
+\frac{\partial \widehat{P}}{\partial lakedist_i} = \beta_7 p_i = 0.00138 p_i
+\end{equation}
+
+ At the sample mean price,
+\(MWTP = 0.00138 \times 180258.842646 = 248.76\).
+
+    Hence, the marginal implicit price goes up with the model including the
+spatial fixed effects. The coefficients for \(lakedist\) also goes up
+with the addition of the fixed effects.\\
+
+    \textbf{(d) Regression including the transformed variable \(tr\_dist_i\) with
+\(maxd=10\)}
+
+\begin{equation}
+tr\_dist_i = max \bigg \{ 1 - \bigg ( \frac{lakedist_i}{maxd} \bigg ) ^{\frac{1}{2}} , 0 \bigg \}  
+\end{equation}
+
+\begin{multline*}
+ln p_i = \beta_0 + \beta_1 \times living\_area_i + 
+\beta_2 \times baths_i + \beta_3 \times age_i + \\
+\beta_4 \times fireplace_i + \beta_5 \times garage\_area_i +
+\sum_{k=A}^{C} \beta_{6k}condk_i + \beta_7 \times tr\_dist_i + \epsilon_i
+\end{multline*}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}80}]:} \PY{c+c1}{\PYZsh{} Creating the transformed distance variable}
+         \PY{n}{maxd} \PY{o}{=} \PY{l+m+mi}{10}
+         \PY{n}{l} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{lakedist} \PY{o}{/} \PY{n}{maxd}
+         \PY{n}{lake\PYZus{}max} \PY{o}{=} \PY{l+m+mi}{1} \PY{o}{\PYZhy{}} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{l}\PY{p}{)}
+         \PY{n}{b} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{lake\PYZus{}max}\PY{p}{)}
+         \PY{n}{df3} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{)}
+         \PY{n}{df3}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{zero}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{b}\PY{p}{)}
+         \PY{n}{df3}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lake}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{lake\PYZus{}max}
+         \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tr\PYZus{}dist}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df3}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} OLS with tr\PYZus{}dist instead of lakedist}
+         \PY{n}{X} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{living\PYZus{}area}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{baths}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fireplace}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{garage\PYZus{}area}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{condA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{condB}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{condC}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                 \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tr\PYZus{}dist}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+         \PY{n}{X} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{add\PYZus{}constant}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+         \PY{n}{Y} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lprice}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{model5} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{OLS}\PY{p}{(}\PY{n}{Y}\PY{p}{,} \PY{n}{X}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+         \PY{n}{predictions5} \PY{o}{=} \PY{n}{model5}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}model4.summary()}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Model 5 parameters with tr\PYZus{}dist}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{round}\PY{p}{(}\PY{n}{model5}\PY{o}{.}\PY{n}{params}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Model 5 parameters with tr\_dist
+const          10.65405
+living\_area     0.00037
+baths           0.07152
+age             0.00249
+fireplace       0.09606
+garage\_area     0.00030
+condA           0.54544
+condB           0.26415
+condC           0.11518
+tr\_dist         0.06322
+dtype: float64
+
+    \end{Verbatim}
+
+    As expected, the transformed distance variable \(tr\_dist_i\) has a
+positive sign when included in the regression given that it is a
+decreasing function of \(lakedist\).
+
+The average implicit price of distance for homes that are less than 1 km
+away from a lake, using average \(lakedist =17.190692\) .
+
+\begin{equation}
+Mgl \quad effect \quad  of \quad lakedist = - \frac{1}{2 maxd ^{\frac{1}{2}} lakedist_i ^{\frac{1}{2}}} = - \frac{1}{2 (10 \times 17.190692) ^{\frac{1}{2}}} = 0.0381
+\end{equation}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
