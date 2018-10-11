@@ -1,0 +1,288 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb,amsfonts}
+\usepackage{ifthen}
+\usepackage{multirow}
+\usepackage{pgfplots}
+\date{}
+ 
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+
+%----------------------------------------
+% Assignment Title and Name
+%----------------------------------------
+\title{ Assignment 1}
+\author{Tiana Randriamaro}
+\date{9/18/18}
+%----------------------------------------
+\begin{document}
+\maketitle
+
+%========================================
+%	START ANSWERS HERE
+%========================================
+ 
+\begin {enumerate}
+\item \textbf{P\&R 16.3 (except part c)}
+\[ v_{ij} = -0.6231ic_{ij} - 0.4580oc_{ij}, \quad j = 1,....,5 \]
+
+\begin{enumerate}
+\item Ratio of coefficient on $ic_{ij}$ over the coefficient $oc_{ij}$\\
+Assuming coef of $oc_{ij} = - 0.4580 = $marginal utility of a dollar of annual income\\
+$Ratio = \frac{-0.6231}{- 0.4580} = 1.360$ can be interpreted as the marginal willingness to pay to reduce installation cost by $\$100$, more specifically, single-family homeowners value reducing installation cost by $\$100$ at $\$136.$
+
+\item Probability of choice for each alternative/person combination\\
+
+\begin{tabular}{ |p{1cm}|p{3cm}|p{3cm}|p{3cm}|  }
+
+ \hline
+  & id=3 & id=14 &id=21\\
+ \hline
+ v1   & -4.49371628    &-4.08903064&   -4.90389874\\
+ v2 &   -5.51030855  & -4.35952513   &-6.24114836\\
+ v3 &-6.49634246 & -5.95773218 &  -6.93019837\\
+ v4    &-7.46229461 & -6.28808552 &  -6.29301732\\
+ v5 &   -7.3172899  & -5.62715714 &-7.6825207\\
+ pr1& 0.622054651  & 0.445828083   &0.586232364\\
+ pr2& 0.225075451  & 0.340167765 &0.153925176\\
+ pr3 &   0.083965145  & 0.068801935 &0.077278564\\
+ pr4& 0.031958866  & 0.04944587   &0.146144763\\
+ pr5& 0.036945887  & 0.095756347 &0.036419133\\
+ \hline
+\end{tabular}
+
+\item 
+
+\item One-time WTP for a 15 percent reduction in the installation cost of alternative $j=5$ for each of the three people.\\
+
+MWTP for $\$100$ reduction in installation cost = $\$136.05$\\
+
+\begin{tabular}{ |p{1cm}|p{3cm}|p{3cm}|p{3cm}|  }
+
+ \hline
+ id & ic5*100 & 15\% of ic5 &WTP for 15\% reduction\\
+ \hline
+ 3   & 1048.3    &157.245 &   \$213.93\\
+ 14 &   775.54  & 116.331   & \$158.27\\
+ 21 & 1083.1  & 162.465 &  \$221.03\\
+
+ \hline
+\end{tabular}
+\end{enumerate}
+
+\item \textbf{P\&R 16.4}
+\begin{enumerate}
+\item Model estimation including installation and operating cost variables.\\
+Using asclogit Stata command, we get the following result:\\
+$\cdotp$ asclogit d ic oc, case(id) alternatives(alt) noconstant \\
+where d is a new boolean variable created to indicate the individual's choice between the alternatives 1 through 5, alt is a new variable representing the alternatives, and the data is now in long-form.\\
+
+\begin{tabular}{ |p{2cm}|p{2cm} p{2cm} p{2cm} p{2cm}|  }
+
+ \hline
+ Parameters & Coef. & Std. Err. & z & $P> \mid z \mid
+ $ \\
+ \hline
+ ic   & -.6231    &.0353 & -17.67 & 0.000\\
+ oc &   -.4580  & .0322   & -14.22 & 0.000\\
+ \hline
+\end{tabular}
+
+These estimates match those in exercise 16.3.\\
+
+\item Model estimation including installation and operating cost variables as well as the full set of J-1 alternative specific constants (ASCs).\\
+Using asclogit Stata command, we get the following result:\\
+$\cdotp$ asclogit d ic oc, case(id) alternatives(alt) \\
+
+\begin{tabular}{ |p{2cm}|p{2cm} p{2cm} p{2cm} p{2cm}|  }
+
+ \hline
+ Parameters & Coef. & Std. Err. & z & $P> \mid z \mid
+ $ \\
+ \hline
+ ic   & -.1533    &.0620 & -2.47 & 0.014\\
+ oc &   -.6996  & .1554   & -4.50 & 0.000\\
+ alt 1 & \multicolumn{4} {|c|}{base alternative} \\
+alt 2 cons & -1.403  & .1340 & -10.47 & 0.000\\
+alt 3 cons & -.0521  & .4660 & -0.11 & 0.911\\
+alt 4 cons & .1424  & .4102 & 0.35 & 0.728 \\
+alt 5 cons & -1.711  & .2267 & -7.55 & 0.000\\
+ \hline
+\end{tabular}
+
+The coefficients' signs remained the same as in part a, but the size of the coefficients changed. In absolute value, the  coefficient on $ic_{ij}$ went down significantly while the coefficient on $oc_{ij}$ went up. Given these changes, the marginal willingness to pay for a change in installation cost is now:
+\[MWTP = \frac{coef ic_{ij}}{coef oc_{ij}} = \frac{-.1533}{-.6996} = .219\]
+or more precisely, homeowners are willing to pay $\$21.9$ for a reduction of installation cost by $\$100$.\\
+The difference between the estimates from part a is due to the addition of the alternative specific constants (ASCs) that are accounting for some characteristics of the choice alternatives that are not captured by the data. So, the effect of installation cost went down while the effect of operating cost went up so an increase in installation cost reduces the utility by .1533 now rather than bu .6231 before, in part a, while an increase in operating cost decreases the utility by almost .7 compared to .45 previously. 
+
+\item Model that allows testing whether higher income households are more or less likely to install a central (as opposed to room) heating system (more likely to select options $j=1,3,5$)\\
+Model with ASCs: using the same model as before but adding income and estimating using conditional logit in Stata. We run the following code:\\
+$\cdotp$ asclogit d ic oc, case(id) alternatives(alt) casevars(income) \\
+
+\begin{tabular}{ |p{2cm}|p{2cm} p{2cm} p{2cm} p{2cm}|  }
+
+ \hline
+ Parameters & Coef. & Std. Err. & z & $P> \mid z \mid
+ $ \\
+ \hline
+ ic   & -.1533    &.0622 & -2.47 & 0.014\\
+ oc &   -.6960  & .1554   & -4.48 & 0.000\\
+ alt 1 & \multicolumn{4} {|c|}{base alternative} \\
+\multirow{2}{4em}{2 income cons} & -.0108 & .0058 & -1.86 & .063 \\
+ & -.9136  & ..2896 & -3.15 & 0.002\\
+\multirow{2}{4em}{3 income cons} & .0008 & .0079 & 0.10 & 0.918 \\
+ & -.1007  & .5972 & -0.17 & 0.866\\
+\multirow{2}{4em}{4 income cons} & -.0025 & .0070 & -0.36 & 0.721\\
+ & .2504  & .5228 & 0.48 & 0.632 \\
+\multirow{2}{4em}{5 income cons} & .0072 & .0089 & 0.81 & 0.419\\
+ & -2.055  & .4863 & -4.23 & 0.000\\
+ \hline
+\end{tabular}\\
+
+With this model, higher income makes the households more likely to choose alternatives 3 and 5, given alternative 1 as base. \\
+
+Model without ASCs\\
+
+\begin{tabular}{ |p{2cm}|p{2cm} p{2cm} p{2cm} p{2cm}|  }
+
+ \hline
+ Parameters & Coef. & Std. Err. & z & $P> \mid z \mid
+ $ \\
+ \hline
+ ic   & -.2670    & .0547 & -4.88 & 0.000\\
+ oc &   -.5831  & .0862   & -6.76 & 0.000\\
+ alt 1  & \multicolumn{4} {|c|}{base alternative} \\
+2 income & -.0255  & .0026 & -9.66 & 0.000\\
+3 income & -.0064  & .0054 & -1.18 & 0.238\\
+4 income & .0009  & .0047 & 0.21 & 0.837 \\
+5 income & -0283  & .0042 & -6.77 & 0.000\\
+ \hline
+\end{tabular}\\
+
+When we run the model without ASCs, higher income does not make the households more likely to choose alternatives 3 and 5. In fact, alternative 4 or room electrical heating is now the most appealing with income into the model. \\
+
+\item Predicting how the average probability of a household selecting the heat pump changes due to a 15 percent installation cost rebate.\\
+Without the rebate, using the model with $ic_{ij}$, $oc_{ij}$, and the full set of ASCs, the probability of household choosing heat pump or alternative 5 is $Pr = .055$, from stata command "predict". \\ 
+With the rebate, the probability of a household selecting the heat pump should go up but running a model with the variable ic (installation cost) at 85\% of the cost when household select heat pump does not seem to have an impact on the average probability of household selecting the heat pump. The average probability of household selecting heat pump remains at 0.055.\\
+
+\item Sample average willingness to pay for the rebate program.\\
+With the model with installation cost rebate, the new coefficient on $ic_{ij}$ is now -.212 and the coefficient on $oc_{ij}$ is -.693. The willingness to pay is $\frac{-.212}{-.693} = .306$ or $\$30.6$.
+Compared with the predictions from exercise 16.3, this value is much lower and much more sensible. 
+
+\end{enumerate}
+
+\item \textbf{P\&R 17.3 (part a only)}	
+\begin{enumerate}
+\item Estimating a single-demand equation for trips to Wrightsville beach (\#10) using the Poisson model exploring versions that include and then exclude income as an explanatory variable.\\
+Assuming travel costs at $\$0.37$ per mile of out of pocket costs and one-third of average wage rate for the opportunity cost per travel time.
+\[ ln \delta_i = \alpha + \beta pr_i + \gamma inc_i \]
+
+For a model including income as explanatory variable, using stata command: \\
+$\cdotp$ poisson tr10 pr10 inc \\
+
+\begin{tabular}{ |p{2cm}|p{2cm} p{2cm} p{2cm} p{2cm}|  }
+
+ \hline
+ Parameters & Coef. & Std. Err. & z & $P> \mid z \mid
+ $ \\
+ \hline
+ pr10   & -.014    & .000  & -14.34 & 0.000\\
+ income &   .000  & .1.69e-06   & 7.19 & 0.000\\
+ constant & .254 & .120 & 2.12 & .034\\
+
+ \hline
+\end{tabular}\\
+
+The coefficient on income is practically near zero.
+\[ ln \delta_i = 0.254 -0.014 pr_i + 0.000 inc_i \]
+
+For a model without income as explanatory variable, using stata command: \\
+$\cdotp$ poisson tr10 pr10 \\
+we get\\
+
+\begin{tabular}{ |p{2cm}|p{2cm} p{2cm} p{2cm} p{2cm}|  }
+
+ \hline
+ Parameters & Coef. & Std. Err. & z & $P> \mid z \mid
+ $ \\
+ \hline
+ pr10   & -.012    & .000  & -12.89 & 0.000\\
+ constant & .863 & .078 & 11.01 & .000\\
+ \hline
+\end{tabular}\\
+\[ ln \delta_i = 0.863 - 0.012 pr_i  \]
+
+Estimating the average welfare loss in the sample if the site were eliminated.\\
+We will use equation 17.13 
+\[E(V_i) = Y_i - \frac{exp(\alpha + \beta p_i)}{\beta}, \gamma = 0 \]
+The compensating variation (CV), which measures the amount of income adjustment needed to restore utility to the original level after the site has been eliminated by setting the travel cost to infinity, is calculated according to 
+\[Y_i - \frac{exp(0.863 - 0.012 p_i)}{-0.012} = Y_i + CV_i - \frac{exp(0.863 - 0.012 \infty)}{-0.012} = Y_i + CV_i\]
+Hence $CV_i = \frac{E(X_i)}{0.012}$. \\
+For the  whole sample, tr10 is visited on average 0.88 times while the average number of trips for those who visited the site is 5.31. The average welfare loss in the sample is then $\$73.3$ and the welfare loss for those who visited the site is $\$442.5$. \\
+
+Estimating the average annual welfare loss from a $\$5$ per person beach access fee.\\
+The beach access fee is a flat fee that would just be added to the travel cost of each individual. 
+\[Y_i - \frac{exp(0.863 - 0.012 p_i)}{-0.012} = Y_i + CV_i - \frac{exp(0.863 - 0.012(p_i+5))}{-0.012} \]
+\[CV_i =  \frac{exp(0.863 - 0.012 p_i) (exp(-.06) - 1)}{-0.012} = \frac{E(X_i) (1 - exp(-0.06)}{0.012} \] 
+Hence for the sample, the average welfare loss is $CV_i = \frac{0.88 (1- exp(-0.06)}{0.012} = \$ 4.27$.\\
+\end{enumerate}
+
+\item \textbf{P\&R 17.4}
+\begin{enumerate}
+\item RUM model including only the fish catch rate as explanatory variables.\\
+Estimation using asclogit noconstant gives the following:
+\[ U_{ij} = -0.103 tc_{ij} + 1.682 walleye_j + 4.457 salmon_j + 0.375 panfish_j \]
+ 
+Marginal willingness to pay for a change in expected walleye catch rate.\\
+Assuming the coefficient on travel cost as the marginal utility of income, the marginal willingness to pay is the ratio of the coefficient on walleye catch rate to the marginal utility of income. Hence,
+\[MWTP = \frac{1.682}{0.103} = \$16.33\]
+
+\item RUM model including site attributes ramp and restroom in the specification as well as interactions between ramp and the household attribute boat, and restroom, and the household attribute kids.\\
+\[ U_{ij} = -0.120 tc_{ij} + 1.166 walleye_j + 4.169 salmon_j + 0.241 panfish_j  - 0.388 ramp_j - 0.107 restroom_j \]
+with the boats and kids coefficients for each alternative not reported here.
+
+Marginal willingness to pay for a change in walleye catch rate went down because we have included individual specific characteristics that influence the choice of a site in addition to the site specific characteristics. \\
+\[MWTP = \frac{1.166}{0.120} = \$9.72\]
+
+\item The ten sites with the highest share of aggregate visits.\\
+Per choice occasion willingness to pay for a policy that increases the walleye catch rate at these ten sites by 30 percent, using the WTP from model in part a.\\
+\begin{tabular}{ |p{2cm}|p{2cm}| p{2cm}|p{3cm}|p{2cm}|}
+
+ \hline
+ Sites & Visits & Walleye & $30\%$ increase & WTP\\
+ \hline
+ 61   & 108 & 0.0016101 & 0.0021 & \$0.034\\
+ 62    & 89 & 0.0008522 &  0.0011 & \$0.018\\
+ 60  & 78 & 0.0023445 & 0.003 & \$0.049 \\
+ 58 & 74 & 0.0346533 & 0.045 & \$0.73 \\
+ 16 &   72 & 0.7140083 & 0.928 & \$15.15 \\
+ 18  & 62 & 0.7556086 & 0.982 & \$16.04 \\
+ 91  & 61 & 0.8285007 & 1.077 & \$17.58 \\ 
+ 19 & 60 & 0.5879535 & 0.764 &  \$12.47 \\
+ 14 & .57 & 0.6906261 & 0.898 & \$14.66 \\ 
+ 22 & 54 & 0.1894172 & 0.246 & \$4.02 \\
+
+ \hline
+\end{tabular}\\
+
+The site with the highest share of aggregate visits is the site 61\\
+Per choice occasion value of access to site 61 is 
+\[ E(CV_i) = \frac{1}{0.12} (ln(exp(-0.12p_{ij} +1.682 walleye)) - ln(exp(-0.12p_{ij} +1.682 newwalleye)) = \$0.008\]
+
+\item RUM model with a full set of alternative specific constants, in addition to the interactions between boat and ramp and restroom and kids.\\ 
+asclogit would not converge using the command:
+$\cdotp$ asclogit d tc walleye salmon panfish ramp restroom, case(id) alternatives(site) casevars(boat kids)
+So I am unable to run a second-stage regression and report the coefficients. \\
+
+\item Welfare calculations with full set of ASCs
+Given a WTP from the estimated model in part d, calculating the welfare impact would be similar to those in part c. 
+
+\end{enumerate}
+
+\end{enumerate}
+
+
+
+\end {document}
